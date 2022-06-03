@@ -3,6 +3,8 @@ package models
 import (
 	"fmt"
 	"time"
+
+	"github.com/jinzhu/gorm"
 )
 
 type JSONTime time.Time
@@ -13,7 +15,8 @@ func (t JSONTime) MarshalJSON() ([]byte, error) {
 }
 
 type Post struct {
-	ID      string    `json:"id"`
+	gorm.Model
+	ID      string    `json:"id" gorm:"primary_key"`
 	Title   string    `json:"title"`
 	Content string    `json:"content"`
 	Created time.Time `json:"created"`

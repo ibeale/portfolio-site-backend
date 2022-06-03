@@ -21,9 +21,19 @@ var posts = []models.Post{
 func main() {
 	router := gin.Default()
 	router.GET("/posts", getPosts)
+	router.POST("/posts", createPost)
 	router.Run(":8080")
 }
 
 func getPosts(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, posts)
+}
+
+func createPost(c *gin.Context) {
+	var post models.Post
+	if err := c.BindJSON(&post); err != nil {
+		return
+	}
+	posts = append(posts, post)
+	c.JSON(http.StatusCreated, post)
 }
