@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/ibeale/portfolio-site-backend/controllers"
 	"github.com/ibeale/portfolio-site-backend/models"
 
 	"github.com/gin-gonic/gin"
@@ -25,8 +26,7 @@ var posts = []models.Post{
 func main() {
 	router := gin.Default()
 	models.ConnectDatabase()
-	router.GET("/posts", getPosts)
-	router.POST("/posts", createPost)
+	router.GET("/posts", controllers.FindPosts)
 	router.Run(":8080")
 }
 
